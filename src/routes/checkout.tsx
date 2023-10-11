@@ -6,6 +6,8 @@ import {
 } from '@phosphor-icons/react'
 import { Fragment } from 'react'
 import { Quantity } from '../components/quantity'
+import { Button } from '../components/button'
+import { cn } from '../utils/cn'
 
 const taxFee = 3.5
 
@@ -41,118 +43,103 @@ const cartTotal = 2 * 3.5 + 7
 
 export function Checkout() {
   return (
-    <form className="checkout">
+    <form className="mx-auto grid max-w-[1120px] grid-cols-[1fr_400px] gap-8 py-10">
       <div>
-        <h2 className="checkout__title">Complete seu pedido</h2>
+        <h2 className="mb-4 font-display text-lg font-bold text-base-title">
+          Complete seu pedido
+        </h2>
 
-        <fieldset className="section address">
-          <div className="section__header">
+        <fieldset className="rounded-md border-0 bg-base-card fill-yellow p-10">
+          <div className="flex gap-2">
             <MapPinLine size={22} fill="inherit" />
-            <div className="section__header-content">
-              <legend className="section__title">Endereço de entrega</legend>
-              <p className="section__description">
+            <div className="flex flex-col gap-[0.125rem]">
+              <legend className="text-base-subtitle">
+                Endereço de entrega
+              </legend>
+              <p className="text-sm text-base-text">
                 Informe o endereço onde deseja receber seu pedido
               </p>
             </div>
           </div>
 
-          <div className="payment__form" style={{ marginTop: '2rem' }}>
-            <Input
-              type="text"
-              placeholder="CEP"
-              style={{ flexBasis: '200px' }}
-            />
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Input type="text" placeholder="CEP" className="basis-[200px]" />
 
-            <Input type="text" placeholder="Rua" style={{ width: '100%' }} />
+            <Input type="text" placeholder="Rua" className="w-full" />
 
-            <div className="payment__form" style={{ width: '100%' }}>
+            <div className="flex w-full flex-wrap gap-4">
               <Input
                 type="text"
                 placeholder="Número"
-                style={{ flexBasis: '200px' }}
+                className="basis-[200px]"
               />
               <Input
                 type="text"
                 placeholder="Complemento"
+                className="grow"
                 optional
-                style={{ flex: '1' }}
               />
             </div>
 
-            <Input
-              type="text"
-              placeholder="Bairro"
-              style={{ flexBasis: '200px' }}
-            />
-            <Input type="text" placeholder="Cidade" style={{ flexGrow: '1' }} />
-            <Input type="text" placeholder="UF" style={{ width: '60px' }} />
+            <Input type="text" placeholder="Bairro" className="basis-[200px]" />
+            <Input type="text" placeholder="Cidade" className="grow" />
+            <Input type="text" placeholder="UF" className="w-[60px]" />
           </div>
         </fieldset>
 
-        <fieldset className="section payment">
-          <div className="section__header">
+        <fieldset className="mt-3 rounded-md border-0 bg-base-card fill-purple p-10">
+          <div className="flex gap-2">
             <CurrencyDollar size={22} fill="inherit" />
-            <div className="section__header-content">
-              <legend className="section__title">Pagamento</legend>
-              <p className="section__description">
+            <div className="flex flex-col gap-[0.125rem]">
+              <legend className="text-base-subtitle">Pagamento</legend>
+              <p className="text-sm text-base-text">
                 O pagamento é feito na entrega. Escolha a forma que deseja pagar
               </p>
             </div>
           </div>
 
-          <div className="payment__content">
-            <label className="radio__label">
+          <div className="mt-8 flex gap-3">
+            <RadioLabel>
               <CreditCard size={16} fill="inherit" />
               Cartão de crédito
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="credit-card"
-                className="radio__input"
-              />
-            </label>
+              <input type="radio" value="credit-card" className="sr-only" />
+            </RadioLabel>
 
-            <label className="radio__label">
+            <RadioLabel>
               <CreditCard size={16} fill="inherit" />
               Cartão de débito
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="debit-card"
-                className="radio__input"
-              />
-            </label>
+              <input type="radio" value="debit-card" className="sr-only" />
+            </RadioLabel>
 
-            <label className="radio__label">
+            <RadioLabel>
               <CreditCard size={16} fill="inherit" />
               Dinheiro
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="money"
-                className="radio__input"
-              />
-            </label>
+              <input type="radio" value="money" className="sr-only" />
+            </RadioLabel>
           </div>
         </fieldset>
       </div>
 
       <div>
-        <h2 className="checkout__title">Cafés selecionados</h2>
+        <h2 className="mb-4 font-display text-lg font-bold text-base-title">
+          Cafés selecionados
+        </h2>
 
-        <section className="section cart">
+        <section className="flex flex-col gap-6 rounded-[6px_36px] border-0 bg-base-card p-10">
           {cart.map((cartItem, index) => (
             <Fragment key={cartItem.id}>
               <CartItem {...cartItem} />
 
-              {index + 1 !== cart.length && <hr className="cart__separator" />}
+              {index + 1 !== cart.length && (
+                <hr className="h-px border-0 bg-base-button" />
+              )}
             </Fragment>
           ))}
 
-          <hr className="cart__separator" />
+          <hr className="h-px border-0 bg-base-button" />
 
-          <div>
-            <div className="cart__info">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm text-base-text">
               <span>Total de itens</span>
               <span>
                 R${' '}
@@ -162,7 +149,7 @@ export function Checkout() {
                 }).format(cartTotal)}
               </span>
             </div>
-            <div className="cart__info">
+            <div className="flex items-center justify-between text-sm text-base-text">
               <span>Entrega</span>
               <span>
                 R${' '}
@@ -172,7 +159,7 @@ export function Checkout() {
                 }).format(taxFee)}
               </span>
             </div>
-            <div className="cart__info">
+            <div className="flex items-center justify-between text-xl font-bold text-base-subtitle">
               <span>Total</span>
               <span>
                 R${' '}
@@ -185,7 +172,7 @@ export function Checkout() {
           </div>
 
           <div>
-            <button className="btn--primary">Confirmar pedido</button>
+            <Button>Confirmar pedido</Button>
           </div>
         </section>
       </div>
@@ -193,17 +180,30 @@ export function Checkout() {
   )
 }
 
-function Input({ optional, error, style, ...props }: any) {
+export function RadioLabel(props: any) {
   return (
-    <div className="input__control" style={style}>
+    <label
+      className="inline-flex grow cursor-pointer select-none items-center gap-3 rounded-md border-2 border-base-button bg-base-button fill-purple p-4 text-xs uppercase text-base-text transition-colors focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-yellow [&:has(input:checked)]:border-purple [&:has(input:checked)]:bg-purple-light"
+      {...props}
+    />
+  )
+}
+
+function Input({ optional, error, className, ...props }: any) {
+  return (
+    <div className={cn('relative inline', className)}>
       <input
-        className="input"
+        className="w-full rounded border border-base-button bg-base-input p-3 text-sm text-base-text placeholder:text-base-label"
         {...props}
         aria-invalid={error ? 'true' : 'false'}
       />
-      {optional && <span className="input__message">Opcional</span>}
+      {optional && (
+        <span className="pointer-events-none absolute bottom-0 right-3 top-1/2 -translate-y-1/2 text-xs italic leading-6 text-base-label">
+          Opcional
+        </span>
+      )}
       {error && (
-        <p className="input__error-message" role="alert">
+        <p className="mt-2 pl-[0.125rem] text-xs text-yellow-dark" role="alert">
           {error}
         </p>
       )}
@@ -213,7 +213,7 @@ function Input({ optional, error, style, ...props }: any) {
 
 function CartItem(props: any) {
   return (
-    <div className="cart-item">
+    <div className="flex items-center gap-5">
       <img
         width={64}
         height={64}
@@ -221,15 +221,10 @@ function CartItem(props: any) {
         alt={props.product.name}
       />
 
-      <div className="cart-item__content">
-        <div
-          className="cart-item__content-row"
-          style={{
-            justifyContent: 'space-between',
-          }}
-        >
+      <div className="flex grow flex-col gap-2">
+        <div className="flex items-center justify-between gap-2 text-base-subtitle">
           <p>{props.product.name}</p>
-          <span className="cart-item__price">
+          <span className="font-bold text-base-text">
             R${' '}
             {new Intl.NumberFormat('pt-BR', {
               minimumFractionDigits: 2,
@@ -238,12 +233,12 @@ function CartItem(props: any) {
           </span>
         </div>
 
-        <div className="cart-item__content-row">
+        <div className="flex items-center gap-2 text-base-subtitle">
           <Quantity />
-          <button type="button" className="btn--secondary">
+          <Button type="button" variant="secondary">
             <Trash size={16} fill="inherit" />
             Remover
-          </button>
+          </Button>
         </div>
       </div>
     </div>
