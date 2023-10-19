@@ -4,6 +4,7 @@ import { Button } from '../components/Button'
 import { CartItem } from '../components/CartItem'
 import { CepInput, Input } from '../components/Input'
 import { RadioInput, RadioLabel } from '../components/Radio'
+import { Quantity } from '../components/Quantity'
 
 export function Checkout() {
   return (
@@ -98,9 +99,32 @@ export function Checkout() {
         </h2>
 
         <section className="flex flex-col gap-6 rounded-[6px_36px] border-0 bg-base-card p-6 lg:p-10">
-          <CartItem />
+          <CartItem
+            product={{
+              id: 1,
+              name: 'Expresso Tradicional',
+              description:
+                'O tradicional café feito com água quente e grãos moídos',
+              price: 3.5,
+              category: ['tradicional'],
+              imageUrl: '/images/expresso.png',
+            }}
+            quantity={2}
+          />
 
           <hr className="h-px border-0 bg-base-button" />
+
+          <CartItem
+            product={{
+              id: 3,
+              name: 'Expresso Cremoso',
+              description: 'Café expresso tradicional com espuma cremosa',
+              price: 4,
+              category: ['tradicional'],
+              imageUrl: '/images/expresso-cremoso.png',
+            }}
+            quantity={3}
+          />
 
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm text-base-text">
