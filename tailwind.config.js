@@ -2,9 +2,11 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    fontFamily: {
-      sans: ['Roboto', 'sans-serif'],
-      display: ['"Baloo 2"', 'cursive'],
+    extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+        display: ['"Baloo 2"', 'cursive'],
+      },
     },
     colors: {
       white: '#ffffff',

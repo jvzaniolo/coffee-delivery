@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "workbench.startupEditor": "readme",
+
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

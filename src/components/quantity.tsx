@@ -23,7 +23,7 @@ export function Quantity() {
         <Plus size={14} />
       </button>
 
-      <input type="hidden" name="quantity" />
+      <input type="hidden" name="quantity" defaultValue={1} />
     </div>
   )
 }

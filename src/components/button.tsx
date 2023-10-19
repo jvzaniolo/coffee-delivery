@@ -23,7 +23,7 @@ export function Button({
         'inline-flex shrink-0 items-center justify-center gap-1 rounded-md uppercase transition-colors',
         'aria-busy:pointer-events-none aria-busy:cursor-wait aria-busy:opacity-60',
         variants[variant],
-        className
+        className,
       )}
       {...props}
     ></button>
