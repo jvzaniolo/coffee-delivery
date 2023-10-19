@@ -4,7 +4,6 @@ import { Button } from '../components/Button'
 import { CartItem } from '../components/CartItem'
 import { CepInput, Input } from '../components/Input'
 import { RadioInput, RadioLabel } from '../components/Radio'
-import { Quantity } from '../components/Quantity'
 
 export function Checkout() {
   return (
