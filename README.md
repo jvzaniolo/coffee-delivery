@@ -1,27 +1,36 @@
-# React + TypeScript + Vite
+# Coffee Delivery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Seja bem-vindo ao terceiro módulo do Workshop React!
 
-Currently, two official plugins are available:
+Durante este projeto, iremos desenvolver uma loja online que vende café.
+O usuário poderá escolher entre diversos tipos de café, adicionar ao carrinho e finalizar a compra.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Pré-requisitos
 
-## Expanding the ESLint configuration
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en/) v18 ou superior
+- [pnpm](https://pnpm.js.org/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Essas ferramentas deverão estar disponíveis no seu terminal.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+git --version
+node --version
+pnpm --version
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Configuração
+
+Crie um repositório a partir deste template: [Coffee Delivery template](https://github.com/jvzaniolo/coffee-delivery).
+
+Clone o repositório e instale as dependências:
+
+```
+pnpm install
+```
+
+Inicie o servidor de desenvolvimento:
+
+```
+pnpm dev
+```
