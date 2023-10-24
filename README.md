@@ -9,14 +9,14 @@ O usuário poderá escolher entre diversos tipos de café, adicionar ao carrinho
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/) v18 ou superior
-- [pnpm](https://pnpm.js.org/)
+- npm
 
 Essas ferramentas deverão estar disponíveis no seu terminal.
 
 ```
 git --version
 node --version
-pnpm --version
+npm --version
 ```
 
 ## Configuração
@@ -26,11 +26,11 @@ Crie um repositório a partir deste template: [Coffee Delivery template](https:/
 Clone o repositório e instale as dependências:
 
 ```
-pnpm install
+npm install
 ```
 
 Inicie o servidor de desenvolvimento:
 
 ```
-pnpm dev
+npm run dev
 ```
