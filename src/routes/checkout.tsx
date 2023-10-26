@@ -3,9 +3,12 @@ import { CreditCard, CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
 import { Button } from '../components/Button'
 import { CartItem } from '../components/CartItem'
 import { CepInput, Input } from '../components/Input'
-import { RadioInput, RadioLabel } from '../components/Radio'
+import { Radio } from '../components/Radio'
+import { useCart } from '../hooks/useCart'
 
 export function Checkout() {
+  const { data: cart } = useCart()
+
   return (
     <form className="mx-auto grid max-w-[1120px] gap-8 px-4 py-10 lg:grid-cols-[1fr_400px]">
       <div className="order-2 md:order-1">
@@ -40,6 +43,7 @@ export function Checkout() {
                 type="text"
                 placeholder="Número"
                 className="grow basis-[200px] md:grow-0"
+                error={0}
               />
               <Input
                 type="text"
@@ -71,23 +75,20 @@ export function Checkout() {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 lg:flex-row">
-            <RadioLabel>
+            <Radio name="paymentMethod" value="credit-card">
               <CreditCard size={16} fill="inherit" />
               Cartão de crédito
-              <RadioInput value="credit-card" />
-            </RadioLabel>
+            </Radio>
 
-            <RadioLabel>
+            <Radio name="paymentMethod" value="debit-card">
               <CreditCard size={16} fill="inherit" />
               Cartão de débito
-              <RadioInput value="debit-card" />
-            </RadioLabel>
+            </Radio>
 
-            <RadioLabel>
+            <Radio name="paymentMethod" value="money">
               <CreditCard size={16} fill="inherit" />
               Dinheiro
-              <RadioInput value="money" />
-            </RadioLabel>
+            </Radio>
           </div>
         </fieldset>
       </div>
@@ -98,32 +99,15 @@ export function Checkout() {
         </h2>
 
         <section className="flex flex-col gap-6 rounded-[6px_36px] border-0 bg-base-card p-6 lg:p-10">
-          <CartItem
-            product={{
-              id: 1,
-              name: 'Expresso Tradicional',
-              description:
-                'O tradicional café feito com água quente e grãos moídos',
-              price: 3.5,
-              category: ['tradicional'],
-              imageUrl: '/images/expresso.png',
-            }}
-            quantity={2}
-          />
+          {cart?.map(cartItem => (
+            <CartItem
+              key={cartItem.id}
+              product={cartItem.product}
+              quantity={cartItem.quantity}
+            />
+          ))}
 
           <hr className="h-px border-0 bg-base-button" />
-
-          <CartItem
-            product={{
-              id: 3,
-              name: 'Expresso Cremoso',
-              description: 'Café expresso tradicional com espuma cremosa',
-              price: 4,
-              category: ['tradicional'],
-              imageUrl: '/images/expresso-cremoso.png',
-            }}
-            quantity={3}
-          />
 
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm text-base-text">

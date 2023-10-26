@@ -2,8 +2,26 @@ import { ShoppingCart } from '@phosphor-icons/react'
 
 import { Quantity } from './Quantity'
 import { Button } from './Button'
+import { Coffee } from '../@types/Coffee'
+import { useCart } from '../hooks/useCart'
 
-export function CoffeeItem(props: any) {
+export function CoffeeItem(props: Coffee) {
+  const { addToCart } = useCart()
+
+  function handleAddToCart(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const quantity = formData.get('quantity')
+
+    if (typeof quantity !== 'string') return
+
+    addToCart.mutate({
+      quantity: Number(quantity),
+      product: props,
+    })
+  }
+
   return (
     <li className="flex flex-col items-center rounded-[6px_36px] bg-base-card px-6 py-5">
       <img
@@ -13,7 +31,7 @@ export function CoffeeItem(props: any) {
       />
 
       <div className="flex gap-1">
-        {props.category.map((c: any) => (
+        {props.category.map(c => (
           <div
             key={c}
             className="mt-3 rounded-full bg-yellow-light px-2 py-1 text-[0.625rem] font-bold uppercase text-yellow-dark"
@@ -30,7 +48,7 @@ export function CoffeeItem(props: any) {
         {props.description}
       </p>
 
-      <form className="mt-auto flex w-full gap-2">
+      <form className="mt-auto flex w-full gap-2" onSubmit={handleAddToCart}>
         <div className="flex w-full items-start gap-1">
           <span className="text-sm leading-loose text-base-text">R$</span>
           <p className="font-display text-2xl font-extrabold text-base-text">
