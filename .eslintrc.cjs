@@ -1,3 +1,4 @@
+/** @type import('eslint').Linter.Config */
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -16,6 +17,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
+    '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     'react-refresh/only-export-components': [
       'warn',

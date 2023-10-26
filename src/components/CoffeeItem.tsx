@@ -31,7 +31,7 @@ export function CoffeeItem(props: any) {
       </p>
 
       <form className="mt-auto flex w-full gap-2">
-        <div className="flex w-full items-center gap-1">
+        <div className="flex w-full items-start gap-1">
           <span className="text-sm leading-loose text-base-text">R$</span>
           <p className="font-display text-2xl font-extrabold text-base-text">
             {new Intl.NumberFormat('pt-BR', {
