@@ -83,12 +83,35 @@ export function useCart() {
     },
   })
 
-  const updateCartItem = useMutation({
+  // const updateCartItem = useMutation({
+  //   mutationFn: updateCartItemQuantity,
+  //   onSuccess: async () => {
+  //     await queryClient.invalidateQueries({ queryKey: ['cart'] })
+  //   },
+  // })
+
+  const updateCartItemOptimistic = useMutation({
     mutationFn: updateCartItemQuantity,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['cart'] })
+    onMutate: async ({ id, quantity }) => {
+      await queryClient.cancelQueries({ queryKey: ['cart'] })
+
+      const previousCart = result.data
+
+      queryClient.setQueryData<CartItem[]>(
+        ['cart'],
+        old => old?.map(item => (item.id === id ? { ...item, quantity } : item))
+      )
+
+      return { previousCart }
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(['cart'], context?.previousCart)
+      toast.error('Não foi possível atualizar a quantidade do item')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
     },
   })
 
-  return { addToCart, removeFromCart, updateCartItem, ...result }
+  return { addToCart, removeFromCart, updateCartItemOptimistic, ...result }
 }
