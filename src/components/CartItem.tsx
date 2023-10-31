@@ -6,7 +6,7 @@ import { CartItem as CartItemProps } from '../@types/CartItem'
 import { useCart } from '../hooks/useCart'
 
 export function CartItem(props: CartItemProps) {
-  const { removeFromCart } = useCart()
+  const { updateCartItem, removeFromCart } = useCart()
 
   return (
     <div className="flex items-center gap-5">
@@ -32,7 +32,12 @@ export function CartItem(props: CartItemProps) {
         </div>
 
         <div className="flex items-center gap-2 text-base-subtitle">
-          <Quantity defaultValue={props.quantity} />
+          <Quantity
+            value={props.quantity}
+            onChange={quantity =>
+              updateCartItem.mutate({ id: props.id, quantity })
+            }
+          />
 
           <Button
             type="button"
