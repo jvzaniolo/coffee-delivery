@@ -6,8 +6,10 @@ import { CepInput, Input } from '../components/Input'
 import { Radio } from '../components/Radio'
 import { useCart } from '../hooks/useCart'
 
+const taxFee = 3.5
+
 export function Checkout() {
-  const { data: cart } = useCart()
+  const { data: cart, cartTotal } = useCart()
 
   return (
     <form className="mx-auto grid max-w-[1120px] gap-8 px-4 py-10 lg:grid-cols-[1fr_400px]">
@@ -113,15 +115,33 @@ export function Checkout() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm text-base-text">
               <span>Total de itens</span>
-              <span>R$ 100,00</span>
+              <span>
+                R${' '}
+                {new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(cartTotal)}
+              </span>
             </div>
             <div className="flex items-center justify-between text-sm text-base-text">
               <span>Entrega</span>
-              <span>R$ 3.50</span>
+              <span>
+                R${' '}
+                {new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(taxFee)}
+              </span>
             </div>
             <div className="flex items-center justify-between text-xl font-bold text-base-subtitle">
               <span>Total</span>
-              <span>R$ 103,50</span>
+              <span>
+                R${' '}
+                {new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(cartTotal + taxFee)}
+              </span>
             </div>
           </div>
 

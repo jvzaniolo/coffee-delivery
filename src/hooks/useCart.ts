@@ -45,6 +45,12 @@ export function useCart() {
     queryFn: getCart,
   })
 
+  const cartTotal = result.data
+    ? result.data.reduce((acc, item) => {
+        return (acc += item.quantity * item.product.price)
+      }, 0)
+    : 0
+
   const addToCart = useMutation({
     mutationFn: (payload: { quantity: number; product: Coffee }) => {
       toastId.current = toast.loading('Adicionando ao carinho...')
@@ -113,5 +119,11 @@ export function useCart() {
     },
   })
 
-  return { addToCart, removeFromCart, updateCartItemOptimistic, ...result }
+  return {
+    addToCart,
+    removeFromCart,
+    updateCartItemOptimistic,
+    cartTotal,
+    ...result,
+  }
 }
