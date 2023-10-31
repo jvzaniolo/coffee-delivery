@@ -9,7 +9,7 @@ import { useCart } from '../hooks/useCart'
 const taxFee = 3.5
 
 export function Checkout() {
-  const { data: cart, cartTotal, isFetching } = useCart()
+  const { data: cart, cartTotal } = useCart()
 
   return (
     <form className="mx-auto grid max-w-[1120px] gap-8 px-4 py-10 lg:grid-cols-[1fr_400px]">
@@ -101,7 +101,9 @@ export function Checkout() {
         </h2>
 
         <section className="flex flex-col gap-6 rounded-[6px_36px] border-0 bg-base-card p-6 lg:p-10">
-          {cart?.length ? (
+          {!cart ? (
+            <p>Carregando...</p>
+          ) : cart.length ? (
             cart.map(cartItem => (
               <CartItem
                 key={cartItem.id}
@@ -110,8 +112,6 @@ export function Checkout() {
                 quantity={cartItem.quantity}
               />
             ))
-          ) : isFetching ? (
-            <p>Carregando...</p>
           ) : (
             <p>Nenhum café no carrinho</p>
           )}
