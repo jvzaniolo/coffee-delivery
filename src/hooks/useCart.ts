@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Coffee } from '../@types/Coffee'
 import { CartItem } from '../@types/CartItem'
+import toast from 'react-hot-toast'
+import { useRef } from 'react'
 
 async function getCart() {
   return fetch('http://localhost:3333/cart').then(res => res.json())
@@ -27,6 +29,7 @@ async function updateCartItemQuantity(id: number, quantity: number) {
 }
 
 export function useCart() {
+  const toastId = useRef('')
   const queryClient = useQueryClient()
   const result = useQuery<CartItem[]>({
     queryKey: ['cart'],
@@ -35,6 +38,7 @@ export function useCart() {
 
   const addToCart = useMutation({
     mutationFn: (payload: { quantity: number; product: Coffee }) => {
+      toastId.current = toast.loading('Adicionando ao carinho...')
       const hasItem = result.data?.find(
         item => item.product.id === payload.product.id
       )
@@ -50,6 +54,7 @@ export function useCart() {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['cart'] })
+      toast.success('Item adicionado ao carrinho', { id: toastId.current })
     },
   })
 
