@@ -10,7 +10,7 @@ export function Quantity({
   value?: number
   onChange?: (quantity: number) => void
 }) {
-  const [quantity, setQuantity] = useState(defaultValue)
+  const [quantity, setQuantity] = useState(value ?? defaultValue)
   // If this is a Controlled input,
   // Use the `value` prop
   // Otherwise, use the internal state `quantity`
@@ -23,10 +23,10 @@ export function Quantity({
         className="rounded bg-transparent p-1 leading-none text-purple disabled:opacity-30"
         aria-label="Diminuir quantidade"
         onClick={() => {
-          setQuantity(quantity - 1)
-          onChange?.(quantity - 1)
+          setQuantity(state - 1)
+          onChange?.(state - 1)
         }}
-        disabled={quantity === 1}
+        disabled={state === 1}
       >
         <Minus size={14} />
       </button>
@@ -40,8 +40,8 @@ export function Quantity({
         className="rounded bg-transparent p-1 leading-none text-purple disabled:opacity-30"
         aria-label="Aumentar quantidade"
         onClick={() => {
-          setQuantity(quantity + 1)
-          onChange?.(quantity + 1)
+          setQuantity(state + 1)
+          onChange?.(state + 1)
         }}
       >
         <Plus size={14} />
