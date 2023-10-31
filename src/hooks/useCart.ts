@@ -18,13 +18,16 @@ async function createCartItem(payload: { quantity: number; product: Coffee }) {
   }).then(res => res.json())
 }
 
-async function updateCartItemQuantity(id: number, quantity: number) {
-  return fetch('http://localhost:3333/cart/' + id, {
+async function updateCartItemQuantity(payload: {
+  id: number
+  quantity: number
+}) {
+  return fetch('http://localhost:3333/cart/' + payload.id, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ quantity }),
+    body: JSON.stringify({ quantity: payload.quantity }),
   }).then(res => res.json())
 }
 
@@ -50,10 +53,10 @@ export function useCart() {
       )
 
       if (hasItem) {
-        return updateCartItemQuantity(
-          hasItem.id,
-          hasItem.quantity + payload.quantity
-        )
+        return updateCartItemQuantity({
+          id: hasItem.id,
+          quantity: hasItem.quantity + payload.quantity,
+        })
       }
 
       return createCartItem(payload)
@@ -77,8 +80,15 @@ export function useCart() {
     mutationFn: removeCartItem,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['cart'] })
-    }
+    },
   })
 
-  return { addToCart, removeFromCart, ...result }
+  const updateCartItem = useMutation({
+    mutationFn: updateCartItemQuantity,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  return { addToCart, removeFromCart, updateCartItem, ...result }
 }
