@@ -61,7 +61,12 @@ export function CoffeeItem(props: Coffee) {
 
         <Quantity />
 
-        <Button type="submit" variant="icon" aria-label="Adicionar ao carrinho">
+        <Button
+          type="submit"
+          variant="icon"
+          aria-label="Adicionar ao carrinho"
+          aria-busy={addToCart.isPending}
+        >
           <ShoppingCart size={20} weight="fill" />
         </Button>
       </form>
