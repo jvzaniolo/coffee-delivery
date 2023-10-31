@@ -54,7 +54,10 @@ export function useCart() {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['cart'] })
-      toast.success('Item adicionado ao carrinho', { id: toastId.current })
+      toast.success('Item adicionado ao carrinho', { id: toastId.current, duration: 2000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível adicionar o item', { id: toastId.current, duration: 4000 })
     },
   })
 
