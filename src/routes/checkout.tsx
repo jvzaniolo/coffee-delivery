@@ -102,6 +102,7 @@ export function Checkout() {
           {cart?.map(cartItem => (
             <CartItem
               key={cartItem.id}
+              id={cartItem.id}
               product={cartItem.product}
               quantity={cartItem.quantity}
             />

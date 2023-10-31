@@ -3,8 +3,11 @@ import { Trash } from '@phosphor-icons/react'
 import { Quantity } from './Quantity'
 import { Button } from './Button'
 import { CartItem as CartItemProps } from '../@types/CartItem'
+import { useCart } from '../hooks/useCart'
 
-export function CartItem(props: Omit<CartItemProps, 'id'>) {
+export function CartItem(props: CartItemProps) {
+  const { removeFromCart } = useCart()
+
   return (
     <div className="flex items-center gap-5">
       <img
@@ -31,7 +34,13 @@ export function CartItem(props: Omit<CartItemProps, 'id'>) {
         <div className="flex items-center gap-2 text-base-subtitle">
           <Quantity defaultValue={props.quantity} />
 
-          <Button type="button" variant="secondary">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => removeFromCart.mutate(props.id)}
+            aria-busy={removeFromCart.isPending}
+            disabled={removeFromCart.isPending}
+          >
             <Trash size={16} fill="inherit" />
             Remover
           </Button>

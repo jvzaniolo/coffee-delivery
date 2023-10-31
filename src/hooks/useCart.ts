@@ -28,6 +28,12 @@ async function updateCartItemQuantity(id: number, quantity: number) {
   }).then(res => res.json())
 }
 
+async function removeCartItem(id: number) {
+  return fetch('http://localhost:3333/cart/' + id, {
+    method: 'DELETE',
+  })
+}
+
 export function useCart() {
   const toastId = useRef('')
   const queryClient = useQueryClient()
@@ -54,12 +60,25 @@ export function useCart() {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['cart'] })
-      toast.success('Item adicionado ao carrinho', { id: toastId.current, duration: 2000 })
+      toast.success('Item adicionado ao carrinho', {
+        id: toastId.current,
+        duration: 2000,
+      })
     },
     onError: () => {
-      toast.error('Não foi possível adicionar o item', { id: toastId.current, duration: 4000 })
+      toast.error('Não foi possível adicionar o item', {
+        id: toastId.current,
+        duration: 4000,
+      })
     },
   })
 
-  return { addToCart, ...result }
+  const removeFromCart = useMutation({
+    mutationFn: removeCartItem,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['cart'] })
+    }
+  })
+
+  return { addToCart, removeFromCart, ...result }
 }
